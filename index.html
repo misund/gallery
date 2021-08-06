@@ -1,0 +1,39 @@
+<style>
+  body {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  body.alt {
+    background-size: contain;
+  }
+</style>
+
+<body>
+
+<script>
+  const body = document.getElementsByTagName('body')[0];
+  const images = [
+    {backgroundColor: '#351c42', year: '1923', artist: 'Wassily Kandinsky', title: 'Composition 8',  url:'images/composition-8.jpg',                 license: "Public domain"},
+    {backgroundColor: '#e8d58b', year: '1909', artist: 'Edvard Munch',      title: 'Solen',          url:'images/edvard-munch-solen.jpg',            license: "Public domain"},
+    {backgroundColor: '#421510', year: '1897', artist: 'Harriet Backer',    title: 'Kortspillere',   url:'images/harriet-backer-kortspillere.jpg',   license: "Public domain"},
+    {backgroundColor: '#609a99', year: '1914', artist: 'Ludvig Karsten',    title: 'Misse i sengen', url:'images/ludvig-karsten-misse-i-sengen.jpg', license: "Public domain"},
+    // {backgroundColor: '#623a1c', year: '1946', artist: 'Bendik Riis',       title: 'Høst',           url:'private-images/bendik-riis-hoest.jpg',     license: `Copyright: © Riis, Bendik/BONO`},
+  ];
+
+  const setImage = imageNumber => {
+    const image = images[imageNumber]
+    body.style.backgroundImage = `url('${image.url}')`;
+    body.style.backgroundColor = image.backgroundColor;
+  }
+
+  const initialImageNumber = parseInt(Math.random() * images.length)
+  setImage(initialImageNumber)
+
+  body.addEventListener('click', e => {
+    body.classList.toggle('alt');
+    body.dataset.clicks = body.dataset.clicks ? parseInt(body.dataset.clicks) + 1 : 1;
+    const imageNumber = (initialImageNumber + Math.floor((body.dataset.clicks/2))) % images.length;
+    setImage(imageNumber)
+  });
+</script>
